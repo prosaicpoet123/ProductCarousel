@@ -7,9 +7,9 @@ function useWindowSize() {
     function updateSize() {
       setSize([window.innerWidth]);
     }
-    window.addEventListener('resize', updateSize);
+    window.addEventListener("resize", updateSize);
     updateSize();
-    return () => window.removeEventListener('resize', updateSize);
+    return () => window.removeEventListener("resize", updateSize);
   }, []);
   return size;
 }
@@ -52,32 +52,32 @@ const ProductCarousel = ({ list, itemsToShow = 5, skipBy = 1 }) => {
   };
   return (
     <div className="ProductCarousel">
-      <div className="CarouselList" ref={productlist}>
-        <div className="CarouselSlider" style={divStyle}>
-          {list.map((item, i) => {
-            return (
-              <div className="CarouselItem" style={itemStyle}>
-                <ProductCard item={item} key={i} />
-              </div>
-            );
-          })}
+      <div className="CarouselList">
+        <button
+          className="backBtn"
+          onClick={e => handleOnClick("back")}
+          disabled={carousel.position === 0}
+        >
+          Back
+        </button>
+        <div className="CarouselSlider" ref={productlist}>
+          <div className="CarouselTrack" style={divStyle}>
+            {list.map((item, i) => {
+              return (
+                <div className="CarouselItem" key={i} style={itemStyle}>
+                  <ProductCard item={item} />
+                </div>
+              );
+            })}
+          </div>
         </div>
-        <div className="CarouselUI">
-          <button
-            className="backBtn"
-            onClick={e => handleOnClick("back")}
-            disabled={carousel.position === 0}
-          >
-            Back
-          </button>
-          <button
-            className="nextBtn"
-            onClick={e => handleOnClick("next")}
-            disabled={carousel.position === list.length - itemsToShow}
-          >
-            Next
-          </button>
-        </div>
+        <button
+          className="nextBtn"
+          onClick={e => handleOnClick("next")}
+          disabled={carousel.position === list.length - itemsToShow}
+        >
+          Next
+        </button>
       </div>
     </div>
   );

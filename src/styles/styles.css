@@ -1,16 +1,15 @@
 .ProductCarousel {
   width: 100%;
   overflow: hidden;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
 }
 
 .CarouselList {
-  position: relative;
-  overflow: hidden;
   display: block;
   transform: translate3d(0, 0, 0);
-  max-width: 1000px;
   width: 100%;
-  margin: 0 auto;
   touch-action: pan-y;
 }
 
@@ -20,10 +19,30 @@
 }
 
 .CarouselSlider {
+  overflow: hidden;
+  margin: 0 40px;
+  position: relative;
+}
+
+.CarouselTrack {
   display: flex;
   transform: translateZ(0);
 }
-
 img {
   width: 100%;
+}
+
+.backBtn,
+.nextBtn {
+  position: absolute;
+  top: 50%;
+  z-index: 101;
+}
+
+.backBtn {
+  left: 0;
+}
+
+.nextBtn {
+  right: 0;
 }

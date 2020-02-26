@@ -7,7 +7,13 @@ import productList from "./data/productList";
 
 class App extends React.Component {
   render() {
-    return <ProductCarousel list={productList} itemsToShow={5} skipBy={1} />;
+    return (
+      <ProductCarousel
+        list={productList}
+        itemsToShow={5}
+        skipBy={1}
+      />
+    );
   }
 }
 
