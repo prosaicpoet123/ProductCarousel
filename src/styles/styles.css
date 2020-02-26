@@ -1,0 +1,29 @@
+.ProductCarousel {
+  width: 100%;
+  overflow: hidden;
+}
+
+.CarouselList {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  transform: translate3d(0, 0, 0);
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  touch-action: pan-y;
+}
+
+.CarouselUI {
+  width: 100%;
+  text-align: center;
+}
+
+.CarouselSlider {
+  display: flex;
+  transform: translateZ(0);
+}
+
+img {
+  width: 100%;
+}
