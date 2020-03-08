@@ -16,11 +16,11 @@ function useWindowSize() {
 
 function handleResponsiveData(data, windowWidth) {
   let returnData;
-  data.forEach((item) => {
+  data.forEach(item => {
     if (windowWidth < item.breakpoint) returnData = item;
-  })
+  });
   return returnData;
-};
+}
 
 const ProductCarousel = ({
   list,
@@ -39,7 +39,14 @@ const ProductCarousel = ({
   useLayoutEffect(() => {
     const { width } = productlist.current.getBoundingClientRect();
     const responsiveData = handleResponsiveData(responsive, windowWidth);
-    updateCarousel({ ...carousel, itemsToScroll, width: width / (responsiveData ? responsiveData.settings.itemsToShow : itemsToShow) });
+    updateCarousel({
+      position: 0,
+      translate: 0,
+      itemsToScroll,
+      width:
+        width /
+        (responsiveData ? responsiveData.settings.itemsToShow : itemsToShow)
+    });
   }, [windowWidth]);
   if (!list) return null;
   const divStyle = {
