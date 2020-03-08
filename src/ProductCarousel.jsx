@@ -14,23 +14,38 @@ function useWindowSize() {
   return size;
 }
 
-const ProductCarousel = ({ list, itemsToShow = 5, skipBy = 1 }) => {
+function handleResponsiveData(data, windowWidth) {
+  let returnData;
+  data.forEach((item) => {
+    if (windowWidth < item.breakpoint) returnData = item;
+  })
+  return returnData;
+};
+
+const ProductCarousel = ({
+  list,
+  itemsToShow = 5,
+  itemsToScroll = 1,
+  speed = 500,
+  responsive = []
+}) => {
   const [carousel, updateCarousel] = useState({
     width: 150,
     translate: 0,
     position: 0
   });
-  const [width] = useWindowSize();
+  const [windowWidth] = useWindowSize();
   let productlist = React.createRef();
   useLayoutEffect(() => {
     const { width } = productlist.current.getBoundingClientRect();
-    updateCarousel({ width: width / itemsToShow, translate: 0, position: 0 });
-  }, [width]);
+    const responsiveData = handleResponsiveData(responsive, windowWidth);
+    updateCarousel({ ...carousel, itemsToScroll, width: width / (responsiveData ? responsiveData.settings.itemsToShow : itemsToShow) });
+  }, [windowWidth]);
   if (!list) return null;
   const divStyle = {
     width: `${list.length * carousel.width}px`,
     transform: `translate3d(${carousel.translate}px, 0px, 0px)`,
-    transition: "transform 0.5s ease-in-out"
+    transition: `transform ${speed}ms ease-in-out`
   };
   const itemStyle = {
     width: `${carousel.width}px`
@@ -38,12 +53,12 @@ const ProductCarousel = ({ list, itemsToShow = 5, skipBy = 1 }) => {
   const handleOnClick = direction => {
     const newTranslation =
       direction === "next"
-        ? carousel.translate - carousel.width * skipBy
-        : carousel.translate + carousel.width * skipBy;
+        ? carousel.translate - carousel.width * itemsToScroll
+        : carousel.translate + carousel.width * itemsToScroll;
     const newPosition =
       direction === "next"
-        ? carousel.position + 1 * skipBy
-        : carousel.position - 1 * skipBy;
+        ? carousel.position + 1 * itemsToScroll
+        : carousel.position - 1 * itemsToScroll;
     updateCarousel({
       width: carousel.width,
       translate: newTranslation,

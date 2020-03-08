@@ -9,9 +9,19 @@ class App extends React.Component {
   render() {
     return (
       <ProductCarousel
-        list={productList}
-        itemsToShow={5}
-        skipBy={1}
+        list={productList} // the data for the carousel
+        itemsToShow={5} // number of items to show by default
+        itemsToScroll={5} // number of items to scroll by on click
+        speed={500} // speed of the animation in milliseconds
+        responsive={[
+          {
+            breakpoint: 480,
+            settings: {
+              itemsToShow: 1,
+              itemsToScroll: 1
+            }
+          }
+        ]}
       />
     );
   }
