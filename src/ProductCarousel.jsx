@@ -15,11 +15,19 @@ function useWindowSize() {
 }
 
 function handleResponsiveData(data, windowWidth) {
-  let returnData;
-  data.forEach(item => {
-    if (windowWidth < item.breakpoint) returnData = item;
-  });
-  return returnData;
+  return data.find(item => windowWidth < item.breakpoint);
+}
+
+function getNewPositions(direction, carousel) {
+  const position =
+    direction === "next"
+      ? carousel.position + 1 * carousel.itemsToScroll
+      : carousel.position - 1 * carousel.itemsToScroll;
+  const translate =
+    direction === "next"
+      ? carousel.translate - carousel.width * carousel.itemsToScroll
+      : carousel.translate + carousel.width * carousel.itemsToScroll;
+  return { position, translate };
 }
 
 const ProductCarousel = ({
@@ -33,13 +41,12 @@ const ProductCarousel = ({
     width: 150,
     translate: 0,
     position: 0,
-    itemsToScroll: 1,
-    itemToShow: 5
+    itemsToScroll,
+    itemsToShow
   });
   const [windowWidth] = useWindowSize();
-  let productlist = React.createRef();
+  const productlist = React.createRef();
   useLayoutEffect(() => {
-    console.log(carousel);
     const { width } = productlist.current.getBoundingClientRect();
     const responsiveData = handleResponsiveData(responsive, windowWidth);
     updateCarousel({
@@ -53,29 +60,14 @@ const ProductCarousel = ({
         (responsiveData ? responsiveData.settings.itemsToShow : itemsToShow)
     });
   }, [windowWidth]);
-  if (!list) return null;
-  const divStyle = {
-    width: `${list.length * carousel.width}px`,
-    transform: `translate3d(${carousel.translate}px, 0px, 0px)`,
-    transition: `transform ${speed}ms ease-in-out`
-  };
-  const itemStyle = {
-    width: `${carousel.width}px`
-  };
+  if (!list || !list.length) return null;
   const handleOnClick = direction => {
-    const newTranslation =
-      direction === "next"
-        ? carousel.translate - carousel.width * carousel.itemsToScroll
-        : carousel.translate + carousel.width * carousel.itemsToScroll;
-    const newPosition =
-      direction === "next"
-        ? carousel.position + 1 * carousel.itemsToScroll
-        : carousel.position - 1 * carousel.itemsToScroll;
+    const { position, translate } = getNewPositions(direction, carousel);
     updateCarousel({
       ...carousel,
       width: carousel.width,
-      translate: newTranslation,
-      position: newPosition
+      translate,
+      position
     });
   };
   return (
@@ -89,10 +81,21 @@ const ProductCarousel = ({
           Back
         </button>
         <div className="CarouselSlider" ref={productlist}>
-          <div className="CarouselTrack" style={divStyle}>
+          <div
+            className="CarouselTrack"
+            style={{
+              width: `${list.length * carousel.width}px`,
+              transform: `translate3d(${carousel.translate}px, 0px, 0px)`,
+              transition: `transform ${speed}ms ease-in-out`
+            }}
+          >
             {list.map((item, i) => {
               return (
-                <div className="CarouselItem" key={i} style={itemStyle}>
+                <div
+                  className="CarouselItem"
+                  key={i}
+                  style={{ width: `${carousel.width}px` }}
+                >
                   <ProductCard item={item} />
                 </div>
               );
