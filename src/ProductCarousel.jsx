@@ -32,17 +32,22 @@ const ProductCarousel = ({
   const [carousel, updateCarousel] = useState({
     width: 150,
     translate: 0,
-    position: 0
+    position: 0,
+    itemsToScroll: 1,
+    itemToShow: 5
   });
   const [windowWidth] = useWindowSize();
   let productlist = React.createRef();
   useLayoutEffect(() => {
+    console.log(carousel);
     const { width } = productlist.current.getBoundingClientRect();
     const responsiveData = handleResponsiveData(responsive, windowWidth);
     updateCarousel({
       position: 0,
       translate: 0,
-      itemsToScroll,
+      itemsToScroll: responsiveData
+        ? responsiveData.settings.itemsToScroll
+        : itemsToScroll,
       width:
         width /
         (responsiveData ? responsiveData.settings.itemsToShow : itemsToShow)
@@ -60,13 +65,14 @@ const ProductCarousel = ({
   const handleOnClick = direction => {
     const newTranslation =
       direction === "next"
-        ? carousel.translate - carousel.width * itemsToScroll
-        : carousel.translate + carousel.width * itemsToScroll;
+        ? carousel.translate - carousel.width * carousel.itemsToScroll
+        : carousel.translate + carousel.width * carousel.itemsToScroll;
     const newPosition =
       direction === "next"
-        ? carousel.position + 1 * itemsToScroll
-        : carousel.position - 1 * itemsToScroll;
+        ? carousel.position + 1 * carousel.itemsToScroll
+        : carousel.position - 1 * carousel.itemsToScroll;
     updateCarousel({
+      ...carousel,
       width: carousel.width,
       translate: newTranslation,
       position: newPosition
@@ -106,5 +112,3 @@ const ProductCarousel = ({
 };
 
 export default ProductCarousel;
-
-//https://stackoverflow.com/questions/19014250/rerender-view-on-browser-resize-with-react

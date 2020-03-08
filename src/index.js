@@ -15,7 +15,7 @@ class App extends React.Component {
         speed={500} // speed of the animation in milliseconds
         responsive={[
           {
-            breakpoint: 480,
+            breakpoint: 580,
             settings: {
               itemsToShow: 1,
               itemsToScroll: 1
