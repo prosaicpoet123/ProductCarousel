@@ -52,6 +52,9 @@ const ProductCarousel = ({
     updateCarousel({
       position: 0,
       translate: 0,
+      itemsToShow: responsiveData
+        ? responsiveData.settings.itemsToShow
+        : itemsToShow,
       itemsToScroll: responsiveData
         ? responsiveData.settings.itemsToScroll
         : itemsToScroll,
@@ -63,6 +66,8 @@ const ProductCarousel = ({
   if (!list || !list.length) return null;
   const handleOnClick = direction => {
     const { position, translate } = getNewPositions(direction, carousel);
+    console.log(position);
+    console.log(list.length - carousel.itemsToShow);
     updateCarousel({
       ...carousel,
       width: carousel.width,
@@ -105,7 +110,7 @@ const ProductCarousel = ({
         <button
           className="nextBtn"
           onClick={e => handleOnClick("next")}
-          disabled={carousel.position === list.length - itemsToShow}
+          disabled={carousel.position === list.length - carousel.itemsToShow}
         >
           Next
         </button>

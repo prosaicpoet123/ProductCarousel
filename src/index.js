@@ -20,6 +20,13 @@ class App extends React.Component {
               itemsToShow: 1,
               itemsToScroll: 1
             }
+          },
+          {
+            breakpoint: 700,
+            settings: {
+              itemsToShow: 2,
+              itemsToScroll: 2
+            }
           }
         ]}
       />
