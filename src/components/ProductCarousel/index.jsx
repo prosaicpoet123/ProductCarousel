@@ -31,7 +31,7 @@ function getNewPositions(direction, carousel) {
 }
 
 const ProductCarousel = ({
-  list,
+  children,
   itemsToShow = 5,
   itemsToScroll = 1,
   speed = 500,
@@ -65,7 +65,7 @@ const ProductCarousel = ({
         (responsiveData ? responsiveData.settings.itemsToShow : itemsToShow)
     });
   }, [windowWidth]);
-  if (!list || !list.length) return null;
+  if (!children || !children.length) return null;
   const handleOnClick = direction => {
     const { position, translate } = getNewPositions(direction, carousel);
     updateCarousel({
@@ -89,19 +89,19 @@ const ProductCarousel = ({
           <div
             className="CarouselTrack"
             style={{
-              width: `${list.length * carousel.width}px`,
+              width: `${children.length * carousel.width}px`,
               transform: `translate3d(${carousel.translate}px, 0px, 0px)`,
               transition: `transform ${speed}ms ease-in-out`
             }}
           >
-            {list.map((item, i) => {
+            {children.map((child, i) => {
               return (
                 <div
                   className="CarouselItem"
                   key={i}
                   style={{ width: `${carousel.width}px` }}
                 >
-                  <ProductCard item={item} />
+                  {child}
                 </div>
               );
             })}
@@ -110,7 +110,7 @@ const ProductCarousel = ({
         <button
           className="nextBtn"
           onClick={e => handleOnClick("next")}
-          disabled={carousel.position === list.length - carousel.itemsToShow}
+          disabled={carousel.position === children.length - carousel.itemsToShow}
         >
           Next
         </button>

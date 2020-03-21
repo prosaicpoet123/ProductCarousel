@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import ProductCarousel from "./components/ProductCarousel";
+import ProductCard from "./components/ProductCard";
 
 import styles from "./styles/styles.css";
 import productList from "./data/productList";
@@ -9,7 +10,6 @@ class App extends React.Component {
   render() {
     return (
       <ProductCarousel
-        list={productList} // the data for the carousel
         itemsToShow={5} // number of items to show by default
         itemsToScroll={5} // number of items to scroll by on click
         speed={500} // speed of the animation in milliseconds
@@ -29,7 +29,11 @@ class App extends React.Component {
             }
           }
         ]}
-      />
+      >
+        {productList.map(item => (
+          <ProductCard item={item} />
+        ))}
+      </ProductCarousel>
     );
   }
 }
