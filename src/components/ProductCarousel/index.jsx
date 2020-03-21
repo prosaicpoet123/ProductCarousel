@@ -1,5 +1,4 @@
 import React, { useState, useLayoutEffect } from "react";
-import ProductCard from "../ProductCard";
 
 function useWindowSize() {
   const [size, setSize] = useState([0, 0]);
@@ -65,7 +64,6 @@ const ProductCarousel = ({
         (responsiveData ? responsiveData.settings.itemsToShow : itemsToShow)
     });
   }, [windowWidth]);
-  if (!children || !children.length) return null;
   const handleOnClick = direction => {
     const { position, translate } = getNewPositions(direction, carousel);
     updateCarousel({
@@ -75,6 +73,7 @@ const ProductCarousel = ({
       position
     });
   };
+  if (!children || !children.length) return null;
   return (
     <div className="ProductCarousel">
       <div className="CarouselList">
@@ -110,7 +109,9 @@ const ProductCarousel = ({
         <button
           className="nextBtn"
           onClick={e => handleOnClick("next")}
-          disabled={carousel.position === children.length - carousel.itemsToShow}
+          disabled={
+            carousel.position === children.length - carousel.itemsToShow
+          }
         >
           Next
         </button>

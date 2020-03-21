@@ -34,4 +34,8 @@ describe("ProductCarousel shallow rendering tests", () => {
     );
     expect(carousel.find(".CarouselItem").length).toBe(10);
   });
+  it("Should display no items", () => {
+    let carousel = mount(<ProductCarousel />);
+    expect(carousel.find(".CarouselItem").length).toBe(0);
+  });
 });
