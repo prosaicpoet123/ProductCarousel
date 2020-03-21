@@ -47,7 +47,9 @@ const ProductCarousel = ({
   const [windowWidth] = useWindowSize();
   const productlist = React.createRef();
   useLayoutEffect(() => {
-    const { width } = productlist.current.getBoundingClientRect();
+    const { width } =
+      (productlist.current && productlist.current.getBoundingClientRect()) ||
+      {};
     const responsiveData = handleResponsiveData(responsive, windowWidth);
     updateCarousel({
       position: 0,
@@ -66,8 +68,6 @@ const ProductCarousel = ({
   if (!list || !list.length) return null;
   const handleOnClick = direction => {
     const { position, translate } = getNewPositions(direction, carousel);
-    console.log(position);
-    console.log(list.length - carousel.itemsToShow);
     updateCarousel({
       ...carousel,
       width: carousel.width,

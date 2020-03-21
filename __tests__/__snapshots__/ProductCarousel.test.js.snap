@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProductCarousel Snapshot Tests Renders the ProductCarousel Correctly 1`] = `
+<div
+  className="ProductCarousel"
+>
+  <div
+    className="CarouselList"
+  >
+    <button
+      className="backBtn"
+      disabled={true}
+      onClick={[Function]}
+    >
+      Back
+    </button>
+    <div
+      className="CarouselSlider"
+    >
+      <div
+        className="CarouselTrack"
+        style={
+          Object {
+            "transform": "translate3d(0px, 0px, 0px)",
+            "transition": "transform 500ms ease-in-out",
+            "width": "NaNpx",
+          }
+        }
+      >
+        <div
+          className="CarouselItem"
+          style={
+            Object {
+              "width": "NaNpx",
+            }
+          }
+        >
+          <div
+            className="ProductCard"
+          >
+            <img
+              alt={undefined}
+              src={undefined}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      className="nextBtn"
+      disabled={false}
+      onClick={[Function]}
+    >
+      Next
+    </button>
+  </div>
+</div>
+`;
