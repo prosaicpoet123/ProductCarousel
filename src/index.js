@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ProductCarousel from "./ProductCarousel";
+import ProductCarousel from "./components/ProductCarousel";
 
 import styles from "./styles/styles.css";
 import productList from "./data/productList";

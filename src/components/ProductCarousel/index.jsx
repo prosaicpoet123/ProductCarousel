@@ -1,5 +1,5 @@
 import React, { useState, useLayoutEffect } from "react";
-import ProductCard from "./ProductCard";
+import ProductCard from "../ProductCard";
 
 function useWindowSize() {
   const [size, setSize] = useState([0, 0]);
