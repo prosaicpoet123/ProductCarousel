@@ -1,6 +1,7 @@
 ## Get Started
 
 Install dependencies `npm install`
+
 Run the application `npm start`
 
 
